@@ -1,27 +1,39 @@
 {
-  "name": "react-element-calculator",
-  "version": "0.1.0",
-  "private": true,
+  "name": "@wisdomstar94/react-cursor-event-calculator",
+  "version": "0.0.1-test.1",
+  "license": "MIT",
+  "private": false,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3330",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "pack:build": "node ./build.esbuild.js",
+    "pack:build:tsc": "tsc --project ./tsconfig.package.json"
   },
-  "dependencies": {
-    "react": "^18",
-    "react-dom": "^18",
-    "next": "14.0.1"
-  },
+  "repository": "https://github.com/wisdomstar94/react-cursor-event-calculator",
+  "main": "index.ts",
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@wisdomstar94/react-add-event-listener": "^0.0.5",
     "autoprefixer": "^10.0.1",
-    "postcss": "^8",
-    "tailwindcss": "^3.3.0",
+    "esbuild": "^0.19.5",
+    "esbuild-css-modules-plugin": "^3.0.3",
     "eslint": "^8",
-    "eslint-config-next": "14.0.1"
+    "eslint-config-next": "14.0.1",
+    "next": "14.0.1",
+    "postcss": "^8",
+    "react": "^18",
+    "react-dom": "^18",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5"
+  },
+  "peerDependencies": {
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "react": "^18",
+    "react-dom": "^18"
   }
 }
