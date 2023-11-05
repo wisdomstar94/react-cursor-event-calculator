@@ -5,6 +5,9 @@ import type {
 } from "react";
 
 export declare namespace IUseCursorEventCalculator {
+  export type HorizontalDirection = 'left' | 'right' | '';
+  export type VerticalDirection = 'top' | 'bottom' | '';
+
   export interface Event {
     mouseEvent?: MouseEvent;
     touchEvent?: TouchEvent;
@@ -78,7 +81,22 @@ export declare namespace IUseCursorEventCalculator {
     requiredKeyValueItemsCheckType: RequiredKeyValueItemsCheckType;
   }
 
-  export interface Props {
+  export interface CursorCalculateTargetInfo {
+    element: HTMLElement;
+    rect: DOMRect;
+    cursorPositionInfo: CursorPositionInfo;
+  }
 
+  export interface PressMovingSquareInfo {
+    width: number;
+    height: number;
+    top?: number;
+    left?: number;
+    rectCoordinateSet?: PositionCoordinateSet;
+    // positionCoordinateSet: IUseCursorEventCalculator.PositionCoordinateSet;
+  }
+
+  export interface Props {
+    squareMargin?: number;
   }
 }
