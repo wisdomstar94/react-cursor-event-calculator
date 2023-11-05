@@ -15,7 +15,7 @@ export default function Page() {
           onClick={(event) => {
             console.log('@event', event);
 
-            const element = cursorEventCalculator.getElementFromEvent(event, {
+            const element = cursorEventCalculator.getElementFromEvent({ reactMouseEvent: event }, {
               requiredKeyValueItems: [
                 { key: 'data-value', value: 'm3', checkType: 'include' },
                 { key: 'data-value2', value: 'm2', checkType: 'include' },

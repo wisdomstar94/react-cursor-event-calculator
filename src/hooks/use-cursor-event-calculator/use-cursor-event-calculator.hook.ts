@@ -89,15 +89,38 @@ export function useCursorEventCalculator(props?: IUseCursorEventCalculator.Props
     return positionInfo;
   }
 
-  function getElementFromEvent(event: MouseEvent | TouchEvent | PointerEvent | ReactMouseEvent | ReactTouchEvent | ReactPointerEvent, options?: IUseCursorEventCalculator.ElementPositionInfoFromEventTargetOptions) {
+  function getElementFromEvent(event: IUseCursorEventCalculator.Event, options?: IUseCursorEventCalculator.ElementPositionInfoFromEventTargetOptions) {
+    const {
+      mouseEvent,
+      touchEvent,
+      pointerEvent,
+      reactMouseEvent,
+      reactTouchEvent,
+      reactPointerEvent,
+    } = event;
+
     const {
       requiredKeyValueItems,
       requiredKeyValueItemsCheckType,
     } = options ?? {};
 
-    const target: HTMLElement | null | undefined = event.target as HTMLElement;
+    let target: HTMLElement | null | undefined;
+    if (isMouseEvent(mouseEvent)) {
+      target = mouseEvent.target as HTMLElement;
+    } else if (isTouchEvent(touchEvent)) {
+      target = touchEvent.target as HTMLElement;
+    } else if (isPointerEvent(pointerEvent)) {
+      target = pointerEvent.target as HTMLElement;
+    } else if (isReactMouseEvent(reactMouseEvent)) {
+      target = reactMouseEvent.target as HTMLElement;
+    } else if (isReactTouchEvent(reactTouchEvent)) {
+      target = reactTouchEvent.target as HTMLElement;
+    } else if (isReactPointerEvent(reactPointerEvent)) {
+      target = reactPointerEvent.target as HTMLElement;
+    }
 
     if (target === null) return undefined;
+    if (target === undefined) return undefined;
 
     let targetElement: HTMLElement | null = target;
     if (requiredKeyValueItems !== undefined && requiredKeyValueItems.length > 0) {
