@@ -18,6 +18,7 @@ export function useCursorEventCalculator(props?: IUseCursorEventCalculator.Props
   const [pressMovingSquareInfo, setPressMovingSquareInfo] = useState<IUseCursorEventCalculator.PressMovingSquareInfo>();
   const [dragHorizontalDirection, setDragHorizontalDirection] = useState<IUseCursorEventCalculator.HorizontalDirection>('');
   const [dragVerticalDirection, setDragVerticalDirection] = useState<IUseCursorEventCalculator.VerticalDirection>('');
+  const [dragEndEvent, setDragEndEvent] = useState<IUseCursorEventCalculator.DragEndEvent>();
 
   const defaultValues = useMemo(() => {
     return {
@@ -409,6 +410,7 @@ export function useCursorEventCalculator(props?: IUseCursorEventCalculator.Props
     setPressMovingSquareInfo(undefined);
     setDragHorizontalDirection('');
     setDragVerticalDirection('');
+    setDragEndEvent({ endInfo: endInfo.current });
   }
 
   function isIncludeElementTargetSquare(element: HTMLElement | null) {
@@ -577,5 +579,6 @@ export function useCursorEventCalculator(props?: IUseCursorEventCalculator.Props
 
     dragHorizontalDirection,
     dragVerticalDirection,
+    dragEndEvent,
   };
 }

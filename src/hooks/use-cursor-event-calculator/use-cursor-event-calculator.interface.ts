@@ -96,6 +96,10 @@ export declare namespace IUseCursorEventCalculator {
     // positionCoordinateSet: IUseCursorEventCalculator.PositionCoordinateSet;
   }
 
+  export interface DragEndEvent {
+    endInfo: CursorCalculateTargetInfo;
+  }
+
   export interface Props {
     squareMargin?: number;
   }
