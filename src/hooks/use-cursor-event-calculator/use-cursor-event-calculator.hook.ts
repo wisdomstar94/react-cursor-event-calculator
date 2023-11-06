@@ -1,9 +1,4 @@
 import { useMemo, useRef, useState } from "react";
-import { 
-  MouseEvent as ReactMouseEvent, 
-  TouchEvent as ReactTouchEvent, 
-  PointerEvent as ReactPointerEvent, 
-} from "react";
 import { IUseCursorEventCalculator } from "./use-cursor-event-calculator.interface";
 import { isMouseEvent, isPointerEvent, isReactMouseEvent, isReactPointerEvent, isReactTouchEvent, isTouchEvent } from "@/utils/type-checker.util";
 
@@ -13,6 +8,8 @@ export function useCursorEventCalculator(props?: IUseCursorEventCalculator.Props
   const movingInfo = useRef<IUseCursorEventCalculator.CursorCalculateTargetInfo>();
   const endInfo = useRef<IUseCursorEventCalculator.CursorCalculateTargetInfo>();
   const [isPressing, setIsPressing] = useState<boolean>(false);
+  const isPressingSync = useRef<boolean>(isPressing);
+
   const [scrollX, setScrollX] = useState<number>(0);
   const [scrollY, setScrollY] = useState<number>(0);
   const [pressMovingSquareInfo, setPressMovingSquareInfo] = useState<IUseCursorEventCalculator.PressMovingSquareInfo>();
@@ -342,11 +339,12 @@ export function useCursorEventCalculator(props?: IUseCursorEventCalculator.Props
     setScrollX(0);
     setScrollY(0);
     setIsPressing(true);
+    isPressingSync.current = true;
     setMoving(event);
   }
 
   function setMoving(event: IUseCursorEventCalculator.Event) {
-    if (!isPressing) {
+    if (!isPressingSync.current) {
       return;
     }
 
@@ -430,6 +428,7 @@ export function useCursorEventCalculator(props?: IUseCursorEventCalculator.Props
     };
 
     setIsPressing(false);
+    isPressingSync.current = false;
     setPressMovingSquareInfo(undefined);
     setDragHorizontalDirection('');
     setDragVerticalDirection('');
