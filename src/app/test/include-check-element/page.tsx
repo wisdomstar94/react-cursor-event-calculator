@@ -45,7 +45,7 @@ export default function Page() {
 
   useEffect(() => {
     if (cursorEventCalculator.isPressing !== true) return;
-    if (cursorEventCalculator.pressMovingSquareInfo === undefined) return;
+    if (cursorEventCalculator.dragAreaInfo === undefined) return;
 
     const table = tableRef.current;
     if (table === null) return;
@@ -58,7 +58,7 @@ export default function Page() {
       }
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cursorEventCalculator.isPressing, cursorEventCalculator.pressMovingSquareInfo]);
+  }, [cursorEventCalculator.isPressing, cursorEventCalculator.dragAreaInfo]);
 
   return (
     <>
@@ -107,10 +107,10 @@ export default function Page() {
       <div
         style={{
           position: 'fixed',
-          top: cursorEventCalculator.pressMovingSquareInfo?.top,
-          left: cursorEventCalculator.pressMovingSquareInfo?.left,
-          width: cursorEventCalculator.pressMovingSquareInfo?.width,
-          height: cursorEventCalculator.pressMovingSquareInfo?.height,
+          top: cursorEventCalculator.dragAreaInfo?.top,
+          left: cursorEventCalculator.dragAreaInfo?.left,
+          width: cursorEventCalculator.dragAreaInfo?.width,
+          height: cursorEventCalculator.dragAreaInfo?.height,
           zIndex: 2,
         }}
         className="border border-dashed border-slate-400 bg-black/30 box-border">

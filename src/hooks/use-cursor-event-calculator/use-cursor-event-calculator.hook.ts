@@ -12,7 +12,7 @@ export function useCursorEventCalculator(props?: IUseCursorEventCalculator.Props
 
   const [scrollX, setScrollX] = useState<number>(0);
   const [scrollY, setScrollY] = useState<number>(0);
-  const [pressMovingSquareInfo, setPressMovingSquareInfo] = useState<IUseCursorEventCalculator.PressMovingSquareInfo>();
+  const [dragAreaInfo, setDragAreaInfo] = useState<IUseCursorEventCalculator.DragAreaInfo>();
   const [dragHorizontalDirection, setDragHorizontalDirection] = useState<IUseCursorEventCalculator.HorizontalDirection>('');
   const [dragVerticalDirection, setDragVerticalDirection] = useState<IUseCursorEventCalculator.VerticalDirection>('');
   const [dragEndEvent, setDragEndEvent] = useState<IUseCursorEventCalculator.DragEndEvent>();
@@ -405,14 +405,14 @@ export function useCursorEventCalculator(props?: IUseCursorEventCalculator.Props
       };
     }
 
-    const info: IUseCursorEventCalculator.PressMovingSquareInfo = {
+    const info: IUseCursorEventCalculator.DragAreaInfo = {
       top,
       left,
       width,
       height, 
       rectCoordinateSet: rectCoordinateSet,
     };
-    setPressMovingSquareInfo(info);
+    setDragAreaInfo(info);
   }
 
   function setEnd(event: IUseCursorEventCalculator.Event) {
@@ -429,7 +429,7 @@ export function useCursorEventCalculator(props?: IUseCursorEventCalculator.Props
 
     setIsPressing(false);
     isPressingSync.current = false;
-    setPressMovingSquareInfo(undefined);
+    setDragAreaInfo(undefined);
     setDragHorizontalDirection('');
     setDragVerticalDirection('');
     setDragEndEvent({ endInfo: endInfo.current });
@@ -461,26 +461,26 @@ export function useCursorEventCalculator(props?: IUseCursorEventCalculator.Props
 
     let isIncludeCase1: boolean = false;
     let targetPoint: IUseCursorEventCalculator.PositoinXY | undefined;
-    if (pressMovingSquareInfo?.rectCoordinateSet !== undefined) {
+    if (dragAreaInfo?.rectCoordinateSet !== undefined) {
       let matchedCount: number = 0;
       // 1) element 의 pointTopLeft 이 include 되었는지 확인하기
       targetPoint = elementPositionInfo.rectCoordinateSet.pointTopLeft;
-      if (isIncludeXY(targetPoint.x, targetPoint.y, pressMovingSquareInfo.rectCoordinateSet)) {
+      if (isIncludeXY(targetPoint.x, targetPoint.y, dragAreaInfo.rectCoordinateSet)) {
         matchedCount++;
       }
       // 2) element 의 pointTopRight 이 include 되었는지 확인하기
       targetPoint = elementPositionInfo.rectCoordinateSet.pointTopRight;
-      if (isIncludeXY(targetPoint.x, targetPoint.y, pressMovingSquareInfo.rectCoordinateSet)) {
+      if (isIncludeXY(targetPoint.x, targetPoint.y, dragAreaInfo.rectCoordinateSet)) {
         matchedCount++;
       }
       // 3) element 의 pointBottomLeft 이 include 되었는지 확인하기
       targetPoint = elementPositionInfo.rectCoordinateSet.pointBottomLeft;
-      if (isIncludeXY(targetPoint.x, targetPoint.y, pressMovingSquareInfo.rectCoordinateSet)) {
+      if (isIncludeXY(targetPoint.x, targetPoint.y, dragAreaInfo.rectCoordinateSet)) {
         matchedCount++;
       }
       // 4) element 의 pointBottomRight 이 include 되었는지 확인하기
       targetPoint = elementPositionInfo.rectCoordinateSet.pointBottomRight;
-      if (isIncludeXY(targetPoint.x, targetPoint.y, pressMovingSquareInfo.rectCoordinateSet)) {
+      if (isIncludeXY(targetPoint.x, targetPoint.y, dragAreaInfo.rectCoordinateSet)) {
         matchedCount++;
       }
       if (matchedCount > 0) {
@@ -495,11 +495,11 @@ export function useCursorEventCalculator(props?: IUseCursorEventCalculator.Props
 
     // isIncludeCase2 check
     let isIncludeCase2: boolean = false;
-    if (pressMovingSquareInfo?.rectCoordinateSet !== undefined) {
-      const squareTopStrokeY = pressMovingSquareInfo.rectCoordinateSet.pointTopLeft.y;
-      const squareBottomStrokeY = pressMovingSquareInfo.rectCoordinateSet.pointBottomLeft.y;
-      const squareLeftStrokeX = pressMovingSquareInfo.rectCoordinateSet.pointTopLeft.x;
-      const squareRightStrokeX = pressMovingSquareInfo.rectCoordinateSet.pointTopRight.x;
+    if (dragAreaInfo?.rectCoordinateSet !== undefined) {
+      const squareTopStrokeY = dragAreaInfo.rectCoordinateSet.pointTopLeft.y;
+      const squareBottomStrokeY = dragAreaInfo.rectCoordinateSet.pointBottomLeft.y;
+      const squareLeftStrokeX = dragAreaInfo.rectCoordinateSet.pointTopLeft.x;
+      const squareRightStrokeX = dragAreaInfo.rectCoordinateSet.pointTopRight.x;
 
       let matchedXCount: number = 0;
       let matchedYCount: number = 0;
@@ -524,11 +524,11 @@ export function useCursorEventCalculator(props?: IUseCursorEventCalculator.Props
 
     // isIncludeCase3 check
     let isIncludeCase3: boolean = false;
-    if (pressMovingSquareInfo?.rectCoordinateSet !== undefined) {
-      const squareTopStrokeY = pressMovingSquareInfo.rectCoordinateSet.pointTopLeft.y;
-      const squareBottomStrokeY = pressMovingSquareInfo.rectCoordinateSet.pointBottomLeft.y;
-      const squareLeftStrokeX = pressMovingSquareInfo.rectCoordinateSet.pointTopLeft.x;
-      const squareRightStrokeX = pressMovingSquareInfo.rectCoordinateSet.pointTopRight.x;
+    if (dragAreaInfo?.rectCoordinateSet !== undefined) {
+      const squareTopStrokeY = dragAreaInfo.rectCoordinateSet.pointTopLeft.y;
+      const squareBottomStrokeY = dragAreaInfo.rectCoordinateSet.pointBottomLeft.y;
+      const squareLeftStrokeX = dragAreaInfo.rectCoordinateSet.pointTopLeft.x;
+      const squareRightStrokeX = dragAreaInfo.rectCoordinateSet.pointTopRight.x;
 
       let matchedXCount: number = 0;
       let matchedYCount: number = 0;
@@ -553,25 +553,25 @@ export function useCursorEventCalculator(props?: IUseCursorEventCalculator.Props
 
     // isIncludeCase4 check
     let isIncludeCase4: boolean = false;
-    if (pressMovingSquareInfo?.rectCoordinateSet !== undefined) {
+    if (dragAreaInfo?.rectCoordinateSet !== undefined) {
       let matchedCount: number = 0;
       // 1) 
-      targetPoint = pressMovingSquareInfo.rectCoordinateSet.pointTopLeft;
+      targetPoint = dragAreaInfo.rectCoordinateSet.pointTopLeft;
       if (isIncludeXY(targetPoint.x, targetPoint.y, elementPositionInfo.rectCoordinateSet)) {
         matchedCount++;
       }
       // 2) 
-      targetPoint = pressMovingSquareInfo.rectCoordinateSet.pointTopRight;
+      targetPoint = dragAreaInfo.rectCoordinateSet.pointTopRight;
       if (isIncludeXY(targetPoint.x, targetPoint.y, elementPositionInfo.rectCoordinateSet)) {
         matchedCount++;
       }
       // 3) 
-      targetPoint = pressMovingSquareInfo.rectCoordinateSet.pointBottomLeft;
+      targetPoint = dragAreaInfo.rectCoordinateSet.pointBottomLeft;
       if (isIncludeXY(targetPoint.x, targetPoint.y, elementPositionInfo.rectCoordinateSet)) {
         matchedCount++;
       }
       // 4) 
-      targetPoint = pressMovingSquareInfo.rectCoordinateSet.pointBottomRight;
+      targetPoint = dragAreaInfo.rectCoordinateSet.pointBottomRight;
       if (isIncludeXY(targetPoint.x, targetPoint.y, elementPositionInfo.rectCoordinateSet)) {
         matchedCount++;
       }
@@ -596,7 +596,7 @@ export function useCursorEventCalculator(props?: IUseCursorEventCalculator.Props
     setEnd,
     scrollX,
     scrollY,
-    pressMovingSquareInfo,
+    dragAreaInfo,
     isIncludeElementTargetSquare,
 
     dragHorizontalDirection,

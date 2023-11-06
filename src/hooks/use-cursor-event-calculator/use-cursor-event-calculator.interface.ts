@@ -87,7 +87,7 @@ export declare namespace IUseCursorEventCalculator {
     cursorPositionInfo: CursorPositionInfo;
   }
 
-  export interface PressMovingSquareInfo {
+  export interface DragAreaInfo {
     width: number;
     height: number;
     top?: number;
