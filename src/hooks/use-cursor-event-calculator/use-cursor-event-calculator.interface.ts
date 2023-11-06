@@ -101,6 +101,6 @@ export declare namespace IUseCursorEventCalculator {
   }
 
   export interface Props {
-    squareMargin?: number;
+    dragAreaMargin?: number;
   }
 }

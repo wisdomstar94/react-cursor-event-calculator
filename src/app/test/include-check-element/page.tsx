@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 export default function Page() {
   const tableRef = useRef<HTMLTableElement>(null);
   const cursorEventCalculator = useCursorEventCalculator({
-    squareMargin: 0,
+    dragAreaMargin: 0,
   });
   const [data, setData] = useState<Array<Array<number>>>([
     [0, 0, 0, 0, 0, 0, 0],

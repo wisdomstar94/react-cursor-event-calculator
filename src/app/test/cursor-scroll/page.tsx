@@ -7,7 +7,7 @@ import { useRef } from "react";
 export default function Page() {
   const divRef = useRef<HTMLDivElement>(null);
   const cursorEventCalculator = useCursorEventCalculator({
-    squareMargin: 0,
+    dragAreaMargin: 0,
   });
 
   useAddEventListener({

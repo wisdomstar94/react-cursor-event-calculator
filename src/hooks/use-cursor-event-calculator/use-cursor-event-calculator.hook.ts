@@ -3,7 +3,7 @@ import { IUseCursorEventCalculator } from "./use-cursor-event-calculator.interfa
 import { isMouseEvent, isPointerEvent, isReactMouseEvent, isReactPointerEvent, isReactTouchEvent, isTouchEvent } from "@/utils/type-checker.util";
 
 export function useCursorEventCalculator(props?: IUseCursorEventCalculator.Props) {
-  const squareMargin = useMemo(() => props?.squareMargin ?? 4, [props?.squareMargin]);
+  const dragAreaMargin = useMemo(() => props?.dragAreaMargin ?? 4, [props?.dragAreaMargin]);
   const pressInfo = useRef<IUseCursorEventCalculator.CursorCalculateTargetInfo>();
   const movingInfo = useRef<IUseCursorEventCalculator.CursorCalculateTargetInfo>();
   const endInfo = useRef<IUseCursorEventCalculator.CursorCalculateTargetInfo>();
@@ -374,22 +374,22 @@ export function useCursorEventCalculator(props?: IUseCursorEventCalculator.Props
 
     if (moving.cursorPositionInfo.client !== undefined && press.cursorPositionInfo.client !== undefined) {
       if (moving.cursorPositionInfo.client.x < press.cursorPositionInfo.client.x - _scrollX) {
-        left = press.cursorPositionInfo.client.x - (press.cursorPositionInfo.client.x - moving.cursorPositionInfo.client.x) + squareMargin;
-        width = press.cursorPositionInfo.client.x - moving.cursorPositionInfo.client.x - scrollX - (squareMargin * 2);
+        left = press.cursorPositionInfo.client.x - (press.cursorPositionInfo.client.x - moving.cursorPositionInfo.client.x) + dragAreaMargin;
+        width = press.cursorPositionInfo.client.x - moving.cursorPositionInfo.client.x - scrollX - (dragAreaMargin * 2);
         setDragHorizontalDirection('left');
       } else {
-        left = press.cursorPositionInfo.client.x - (_scrollX) + squareMargin;
-        width = moving.cursorPositionInfo.client.x - press.cursorPositionInfo.client.x + _scrollX - (squareMargin * 2);
+        left = press.cursorPositionInfo.client.x - (_scrollX) + dragAreaMargin;
+        width = moving.cursorPositionInfo.client.x - press.cursorPositionInfo.client.x + _scrollX - (dragAreaMargin * 2);
         setDragHorizontalDirection('right');
       }
 
       if (moving.cursorPositionInfo.client.y < press.cursorPositionInfo.client.y - _scrollY) {
-        top = press.cursorPositionInfo.client.y - (press.cursorPositionInfo.client.y - moving.cursorPositionInfo.client.y) + squareMargin;
-        height = press.cursorPositionInfo.client.y - moving.cursorPositionInfo.client.y - _scrollY - (squareMargin * 2);
+        top = press.cursorPositionInfo.client.y - (press.cursorPositionInfo.client.y - moving.cursorPositionInfo.client.y) + dragAreaMargin;
+        height = press.cursorPositionInfo.client.y - moving.cursorPositionInfo.client.y - _scrollY - (dragAreaMargin * 2);
         setDragVerticalDirection('top');
       } else {
-        top = press.cursorPositionInfo.client.y - (_scrollY) + squareMargin;
-        height = moving.cursorPositionInfo.client.y - press.cursorPositionInfo.client.y + _scrollY - (squareMargin * 2);
+        top = press.cursorPositionInfo.client.y - (_scrollY) + dragAreaMargin;
+        height = moving.cursorPositionInfo.client.y - press.cursorPositionInfo.client.y + _scrollY - (dragAreaMargin * 2);
         setDragVerticalDirection('bottom');
       }
     }
